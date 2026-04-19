@@ -25,6 +25,10 @@ class LLMPlayer(ABC):
                 Role: {self.role}
                 Keep messages short.
                 """
+    def interpret_scheduling_decision(self, decision):
+        if decision and "pass" in decision.lower():
+            return False
+        return True
 
 class MafiaPlayer(LLMPlayer):
 
@@ -33,7 +37,7 @@ class MafiaPlayer(LLMPlayer):
     def should_generate_message(self, context):
         decision = self.llm.generate(
             prompt="Decide whether to speak",
-            system_info=self.get_system_info_message(self)
+            system_info=self.get_system_info_message()
         )
         return self.interpret_scheduling_decision(decision)
 
@@ -117,15 +121,10 @@ Rules:
         system_info = self.get_system_info_message()
 
         vote = self.llm.generate(prompt, system_info)
+        vote = vote.strip()
 
-        return vote
-    print("creating player...")
+        for name in candidate_vote_names:
+            if name.lower() in vote.lower():
+                return name
 
-player = MafiaPlayer(
-    name="Bot1",
-    role="mafia",
-    llm_config={},
-    game_dir="."
-)
-
-print(player.generate_message(["A: hi", "B: suspicious"]))
+        return candidate_vote_names[0]
