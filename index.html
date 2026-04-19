@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Mafia: Victorian Mystery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap&quot; rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="lobby" class="table-container">
+        <div class="paper main-menu">
+            <h1>Mafia: Victorian Mystery</h1>
+            <p>Введите ваше имя, чтобы войти в игру:</p>
+            <input type="text" id="player-name" placeholder="Ваше имя..." class="v-input">
+            <button class="v-btn" onclick="startGame()">Начать игру</button>
+        </div>
+    </div>
+
+    <div id="game-table" class="table-container" style="display: none;">
+        <header>
+            <h1 id="user-role-display">Ваша роль: Ожидание...</h1>
+            <div id="game-phase-indicator" style="text-align: center; color: #bc9b6a; font-style: italic;">День 1</div>
+        </header>
+        
+        <div class="players-grid" id="players-list"></div>
+        
+        <section class="game-log">
+            <div class="paper chat-wrapper">
+                <h2>Дневник событий и чат</h2>
+                <div id="log-content" style="height: 300px; overflow-y: auto; font-style: italic; border-bottom: 1px solid #bc9b6a; margin-bottom: 15px; padding-right: 10px;">
+                    <p><b>Система:</b> Город готовится к встрече с вами...</p>
+                </div>
+                
+                <div class="chat-controls" style="display: flex; gap: 10px;">
+                    <input type="text" id="chat-input" placeholder="Напишите ваши подозрения..." class="v-input" style="flex-grow: 1; margin-bottom: 0;">
+                    <button class="v-btn" onclick="sendMessage()">Сказать</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="controls" style="text-align: center; margin-top: 20px;">
+            <button id="phase-btn" class="v-btn" onclick="nextPhase()">Завершить обсуждение</button>
+        </div>
+    </div>
+
+    <script src="/script.js"></script>
+</body>
+</html>
